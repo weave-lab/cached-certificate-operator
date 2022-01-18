@@ -1,0 +1,119 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.4.1
+  creationTimestamp: null
+  name: cachedcertificates.cache.weavelab.xyz
+spec:
+  group: cache.weavelab.xyz
+  names:
+    kind: CachedCertificate
+    listKind: CachedCertificateList
+    plural: cachedcertificates
+    singular: cachedcertificate
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.upstreamReady
+      name: Upstream_Ready
+      type: string
+    - jsonPath: .status.state
+      name: State
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: CachedCertificate is the Schema for the cachedcertificates API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: CachedCertificateSpec defines the desired state of CachedCertificate
+            properties:
+              dnsNames:
+                description: DNSNames is a list of unique dns names for the cert Changing
+                  this field may cause a new upstream certificate to be created in
+                  the cache namespace
+                items:
+                  type: string
+                minItems: 1
+                type: array
+              issuerRef:
+                description: IssuerRef identifies a single issuer to use when generating
+                  the cert Changing this field may cause a new upstream certificate
+                  to be created in the cache namespace
+                properties:
+                  group:
+                    description: Group is the name of the issuer group. Optional
+                    type: string
+                  kind:
+                    description: Kind indicates the issuer kind to use
+                    type: string
+                  name:
+                    description: Name is the name of the issuer
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              secretName:
+                description: "SecretName indicates the name of the secret which will
+                  be created once the upstream certificate has been generated Changing
+                  this field *will not* cause a new upstream certificate to be created
+                  If changed, old secrets will not get cleaned up by the operator
+                  \n It is optional and will be defaulted to the CachedCertificate
+                  Name"
+                type: string
+            required:
+            - dnsNames
+            - issuerRef
+            type: object
+          status:
+            description: CachedCertificateStatus defines the observed state of CachedCertificate
+            properties:
+              state:
+                type: string
+              upstreamReady:
+                type: boolean
+              upstreamRef:
+                description: ObjectReference is a reference to an object with a given
+                  name and Namespace
+                properties:
+                  name:
+                    description: Name of the resource being referred to.
+                    type: string
+                  namespace:
+                    description: Namespace of the resource being referred to.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - state
+            - upstreamReady
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
