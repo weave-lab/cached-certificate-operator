@@ -1,0 +1,20 @@
+# permissions for end users to view cachedcertificates.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cachedcertificate-viewer-role
+rules:
+- apiGroups:
+  - cache.weavelab.xyz
+  resources:
+  - cachedcertificates
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cache.weavelab.xyz
+  resources:
+  - cachedcertificates/status
+  verbs:
+  - get

@@ -1,0 +1,11 @@
+apiVersion: cache.weavelab.xyz/v1alpha1
+kind: CachedCertificate
+metadata:
+  name: cachedcertificate-sample-2
+spec:
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+  secretName: test-secret-from-cache-2
+  dnsNames:
+  - example.com
