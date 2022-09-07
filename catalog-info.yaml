@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "infra-cached-certificate-operator"
+  description: "A Kubernetes operator that allows for automatic provisioning and distribution of cert-manager certs across namespaces"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: internal
+  lifecycle: production
+  owner: "infrastructure"

@@ -1,0 +1,19 @@
+env:
+  OPERATOR_VERSION: "1.0.0"
+
+steps:
+  - label: ":wrench: Build Ephemeral Image"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/docker-build-buildkite-plugin#v3.1.5:
+          docker_compose_file: "docker-compose.yml"
+          docker_image: "cached-certificate-operator"
+          tag: "$OPERATOR_VERSION"
+          namespace: "infra-cached-certificate-operator"
+          env: "ephemeral"
+
+  - label: ":wrench: Build Techdocs"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/techdocs-build-buildkite-plugin#v1.1.0:
+          name: "helm-templates"

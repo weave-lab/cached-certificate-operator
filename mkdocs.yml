@@ -1,0 +1,7 @@
+site_name: "infra-cached-certificate-operator"
+
+nav:
+  - Home: README.md
+
+plugins:
+  - techdocs-core
