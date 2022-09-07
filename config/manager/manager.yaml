@@ -29,7 +29,7 @@ spec:
             - /manager
           args:
             - --leader-elect
-          image: gcr.io/pachama-ephemeral/infra-cached-certificate-operator/cached-certificate-operator:1.0.1
+          image: gcr.io/pachama-ephemeral/infra-cached-certificate-operator/cached-certificate-operator:1.0.2
           name: manager
           securityContext:
             allowPrivilegeEscalation: false

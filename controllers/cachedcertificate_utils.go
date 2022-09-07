@@ -105,6 +105,7 @@ func getUpstreamCertificateName(dnsNames ...string) string {
 		// the "-3" is to ensure space for the "cc-" prefix
 		resourceName = resourceName[:hashPrefixLength-3] + genHash(resourceName)
 	}
+	resourceName = strings.ReplaceAll(resourceName, "\\", "x")
 
 	return "cc-" + resourceName
 }
