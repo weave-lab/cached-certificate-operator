@@ -1,14 +1,16 @@
+[![Build status](https://badge.buildkite.com/6dc8b0d26c8616049805c564385a404dd2c0a56e0cd2d0f409.svg)](https://buildkite.com/pachama/infra-cached-certificate-operator)
+
 # cached-certificate-operator
 
 ### CachedCertificate Workflow
 
 When a `CachedCertificate` is created or updated the operator does the following:
 
-* Check for a valid upstream `Certificate`
-  * Create if missing and then resync
-* Wait for upstream `Secret` to be created
-* Sync the upstream `Secret` to the target local secret name
-* Watch for upstream `Secret` changes and sync down
+- Check for a valid upstream `Certificate`
+  - Create if missing and then resync
+- Wait for upstream `Secret` to be created
+- Sync the upstream `Secret` to the target local secret name
+- Watch for upstream `Secret` changes and sync down
 
 ### Quickstart Install
 
