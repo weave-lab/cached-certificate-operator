@@ -99,7 +99,7 @@ func getUpstreamCertificateName(dnsNames ...string) string {
 	sort.Strings(names)
 
 	resourceName := strings.Join(names, "-")
-	resourceName = strings.ReplaceAll(resourceName, "*", "-")
+	resourceName = strings.ReplaceAll(resourceName, "*", "x")
 
 	if len(resourceName) > maxSecretNameLength {
 		// the "-3" is to ensure space for the "cc-" prefix

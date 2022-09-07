@@ -1,5 +1,5 @@
 env:
-  OPERATOR_VERSION: "1.0.0"
+  OPERATOR_VERSION: "1.0.1"
 
 steps:
   - label: ":wrench: Build Ephemeral Image"
