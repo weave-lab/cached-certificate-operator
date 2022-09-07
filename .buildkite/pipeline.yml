@@ -12,6 +12,46 @@ steps:
           namespace: "infra-cached-certificate-operator"
           env: "ephemeral"
 
+  - label: ":wrench: Build Buildkite Image"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/docker-build-buildkite-plugin#v3.1.5:
+          docker_compose_file: "docker-compose.yml"
+          docker_image: "cached-certificate-operator"
+          tag: "$OPERATOR_VERSION"
+          namespace: "infra-cached-certificate-operator"
+          env: "buildkite"
+
+  - label: ":wrench: Build Labs Image"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/docker-build-buildkite-plugin#v3.1.5:
+          docker_compose_file: "docker-compose.yml"
+          docker_image: "cached-certificate-operator"
+          tag: "$OPERATOR_VERSION"
+          namespace: "infra-cached-certificate-operator"
+          env: "labs"
+
+  - label: ":wrench: Build Staging Image"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/docker-build-buildkite-plugin#v3.1.5:
+          docker_compose_file: "docker-compose.yml"
+          docker_image: "cached-certificate-operator"
+          tag: "$OPERATOR_VERSION"
+          namespace: "infra-cached-certificate-operator"
+          env: "staging"
+
+  - label: ":wrench: Build Prod Image"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/docker-build-buildkite-plugin#v3.1.5:
+          docker_compose_file: "docker-compose.yml"
+          docker_image: "cached-certificate-operator"
+          tag: "$OPERATOR_VERSION"
+          namespace: "infra-cached-certificate-operator"
+          env: "production"
+
   - label: ":wrench: Build Techdocs"
     branches: "main"
     plugins:
