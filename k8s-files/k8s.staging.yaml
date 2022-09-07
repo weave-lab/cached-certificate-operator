@@ -1,5 +1,5 @@
 deploy:
-  appVersion: 1.0.2
+  appVersion: 1.0.1
   applicationNamespace: cached-certificate-operator-system
   applicationName: cached-certificate-operator
   description: Our Pachama managed cached-certificate-operator deployment
@@ -8,7 +8,7 @@ deploy:
       name: Infrastructure Team
 template:
   name: cached-certificate-operator
-  version: 1.0.0
+  version: 1.0.1
 
-env: staging
-version: 1.0.2
+imageEnv: staging
+imageVersion: 1.0.2
