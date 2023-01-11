@@ -32,6 +32,16 @@ steps:
           namespace: "infra-cached-certificate-operator"
           env: "labs"
 
+  - label: ":wrench: Build Labs-Staging Image"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/docker-build-buildkite-plugin#v3.2.0:
+          docker_compose_file: "docker-compose.yml"
+          docker_image: "cached-certificate-operator"
+          tag: "$OPERATOR_VERSION"
+          namespace: "infra-cached-certificate-operator"
+          env: "labs-staging"
+
   - label: ":wrench: Build Staging Image"
     branches: "main"
     plugins:
@@ -94,6 +104,15 @@ steps:
           k8s_file: "k8s-files/k8s.labs.yaml"
           env: "labs"
           cluster: "modeling"
+          wait_for_rollout: true
+
+  - label: ":rocket: Deploy to Labs-Staging"
+    branches: "main"
+    plugins:
+      - ssh://git@github.com/pachama/helm-deploy-buildkite-plugin#v3.4.0:
+          k8s_file: "k8s-files/k8s.labs-staging.yaml"
+          env: "labs-staging"
+          cluster: "labs-staging"
           wait_for_rollout: true
 
   - label: ":rocket: Deploy to Staging"
