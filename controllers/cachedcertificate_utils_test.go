@@ -48,6 +48,11 @@ func Test_getUpstreamName(t *testing.T) {
 			"cc-secondary.example.com-test.example.com", // sort should have happened
 		},
 		{
+			"wildcard",
+			args{[]string{"*.example.com", "secondary.example.com"}},
+			"cc-4282156789476448970-secondary.example.com", // the wildcard is hashed
+		},
+		{
 			"long is hashed",
 			args{[]string{
 				"a.example.com",

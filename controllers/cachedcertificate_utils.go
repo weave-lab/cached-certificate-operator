@@ -90,9 +90,16 @@ func getUpstreamCertificateName(dnsNames ...string) string {
 		return ""
 	}
 
-	// copy the input to preserve original order
-	names := make([]string, len(dnsNames))
-	copy(names, dnsNames)
+	// copy the input to preserve original order, handle wildcards by hashing the whole name
+	// we have to be deterministic, but we don't have to be two-way encodable
+	names := make([]string, 0, len(dnsNames))
+	for _, name := range dnsNames {
+		if strings.Contains(name, "*") {
+			names = append(names, genHash(name))
+		} else {
+			names = append(names, name)
+		}
+	}
 
 	// All that matters is the unique list, not the order
 	// so we sort the copied slice before processing
